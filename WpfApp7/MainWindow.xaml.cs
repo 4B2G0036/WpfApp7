@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 
 namespace WpfApp7
 {
@@ -17,29 +18,40 @@ namespace WpfApp7
     /// </summary>
     public partial class MainWindow : Window
     {
-        string aqiURL = "https://data.moenv.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate%20desc&format=JSON";
+        string defaultURL = "https://data.moenv.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate%20desc&format=JSON";
+
         public MainWindow()
         {
             InitializeComponent();
-            urlTextBox.Text = aqiURL;
+            URLTextBox.Text = defaultURL;
         }
-        private async void btnGetAQI_Click(object sender, RoutedEventArgs e)
-        {
-            string url = urlTextBox.Text;
-            ContentTextBox.Text = "抓取資料中...";
 
-            string data = await GetAQIAsync(url);
+        private async void GetAQIButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentTextBox.Text = "抓取資料中...";
+            string data = await FetchContentAsync(defaultURL);
             ContentTextBox.Text = data;
         }
 
-        private async Task<string> GetAQIAsync(string url)
+        private async Task<string> FetchContentAsync(string url)
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
-                return content;
+                client.Timeout = TimeSpan.FromSeconds(100);
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return responseBody;
+                }
+                catch (HttpRequestException e)
+                {
+                    return null;
+                }
             }
         }
+
+        
     }
 }

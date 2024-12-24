@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp7"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="AQI空氣品質偵測" Height="450" Width="800">
+        Title="AQI空氣品質偵測" Height="1000" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
@@ -15,23 +16,42 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250*" />
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="600*" />
+            <ColumnDefinition Width="500*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Center" Background="#FFF6EBEB" Height="80">
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" Height="90" Width="Auto" Background="#FFD26C6C" >
+            <Label Content="每小時提供各測站之空氣品質指標(AQI)" Margin="30, 0, 0, 0"/>
             <StackPanel Orientation="Horizontal">
-                <Label Content="AQI空氣品質監測" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14" Margin="20,0,0,0"/>
-                <TextBox x:Name="urlTextBox" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="950" Height="30" Margin="20,0,0,0"/>
+                <TextBlock x:Name="URLTextBox" Width="600" Height="35" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30, 0, 0, 0" Background="#FFF7F5F5"/>
+                <Button x:Name="GetAQIButton" Content="取得AQI" Width="100" Height="35" Margin="20, 0, 0, 0" Click="GetAQIButton_Click"/>
             </StackPanel>
-
-            <Button x:Name="btnGetAQI" Content="取得空氣品質" HorizontalAlignment="Left"  Height="30" Width="100" Margin="20,0,0,0" Click="btnGetAQI_Click"/>
         </StackPanel>
-        <TextBox x:Name="ContentTextBox" Grid.Row="1" Grid.Column="0" Background="#FFF9F8E9"/>
-        <GridSplitter Grid.Row="1" Grid.Column="1" Height="Auto" Width="5" Background="gray" HorizontalAlignment="Center"/>
-        <Border Grid.Row="1" Grid.Column="2" Background="#FFF9F8E9" BorderBrush="Red" BorderThickness="1" Margin="1,1,1,1">
-        </Border>
-        <StatusBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Background="#FFD9D9D9">
-            <StatusBarItem>
-                <TextBlock x:Name="statusBarText" Text="Ready" Margin="50,0,0,0"/>
+        <TextBox x:Name="ContentTextBox" Grid.Row="1" Grid.Column="0" Background="Aqua"/>
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" Background="Bisque" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="1" Grid.Column="2" Background="#FF6AE4B4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="100" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
+                <DataGrid x:Name="RecordDataGrid" AutoGenerateColumns="True" 
+            </Border>
+            <GridSplitter Grid.Row="1" BorderBrush="DarkOrange" Height="5" Background="White" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
+                <WrapPanel></WrapPanel>
+            </Border>
+            <Border Grid.Row="3" BorderBrush="DarkViolet" BorderThickness="2" Margin="2, 2, 2, 2">
+                <lvc:CartesianChart x:Name="AQIChart" Background="#FF6AE4B4" Height="500">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="數值" Labels="{Binding Labels}"/>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </Border>
+        </Grid> 
+        <StatusBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <StatusBarItem Width="60">
+                <TextBlock x:Name="StatusTextBlock" Text="Ready" FontSize="16" />
             </StatusBarItem>
         </StatusBar>
     </Grid>
