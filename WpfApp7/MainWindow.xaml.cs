@@ -1,15 +1,5 @@
 ﻿using System.Net.Http;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.WebRequestMethods;
 
 namespace WpfApp7
 {
@@ -31,6 +21,7 @@ namespace WpfApp7
             ContentTextBox.Text = "抓取資料中...";
             string data = await FetchContentAsync(defaultURL);
             ContentTextBox.Text = data;
+            
         }
 
         private async Task<string> FetchContentAsync(string url)
@@ -51,7 +42,5 @@ namespace WpfApp7
                 }
             }
         }
-
-        
     }
 }

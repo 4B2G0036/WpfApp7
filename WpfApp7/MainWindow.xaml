@@ -25,7 +25,7 @@
                 <Button x:Name="GetAQIButton" Content="取得AQI" Width="100" Height="35" Margin="20, 0, 0, 0" Click="GetAQIButton_Click"/>
             </StackPanel>
         </StackPanel>
-        <TextBox x:Name="ContentTextBox" Grid.Row="1" Grid.Column="0" Background="Aqua"/>
+        <TextBox x:Name="ContentTextBox" Grid.Row="1" Grid.Column="0" Background="Aqua" TextInput="ContentTextBox_TextInput"/>
         <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" Background="Bisque" HorizontalAlignment="Center"/>
         <Grid Grid.Row="1" Grid.Column="2" Background="#FF6AE4B4">
             <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
-                <DataGrid x:Name="RecordDataGrid" AutoGenerateColumns="True" 
+                <DataGrid x:Name="RecordDataGrid" AutoGenerateColumns="True"></DataGrid>
             </Border>
             <GridSplitter Grid.Row="1" BorderBrush="DarkOrange" Height="5" Background="White" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
             <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
