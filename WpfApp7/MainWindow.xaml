@@ -14,7 +14,7 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250*" />
+            <ColumnDefinition Width="300*" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="500*" />
         </Grid.ColumnDefinitions>
@@ -35,11 +35,11 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
-                <DataGrid x:Name="RecordDataGrid" AutoGenerateColumns="True" LoadingRow="RecordDataGrid_LoadingRow"/>
+                <DataGrid x:Name="RecordDataGrid" AutoGenerateColumns="True" LoadingRow="RecordDataGrid_LoadingRow" IsReadOnly="True"/>
             </Border>
             <GridSplitter Grid.Row="1" BorderBrush="DarkOrange" Height="5" Background="White" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
             <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="2, 2, 2, 2">
-                <WrapPanel></WrapPanel>
+                <WrapPanel x:Name="DataWrapPanel" Orientation="Horizontal" Margin="5, 5, 5, 5"/>
             </Border>
             <Border Grid.Row="3" BorderBrush="DarkViolet" BorderThickness="2" Margin="2, 2, 2, 2">
                 <lvc:CartesianChart x:Name="AQIChart" Background="#FF6AE4B4" Height="500">
